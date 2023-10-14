@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -199,6 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transform: {fileID: 5460457956263818192}
   speed: 0
+  spriteLeft: {fileID: 21300000, guid: 301ec1905b216044fa3488220da864c9, type: 3}
+  spriteRight: {fileID: 21300000, guid: 95f32c8c9c0d8f6479a04b287535fddf, type: 3}
 --- !u!1 &7578636804491684820
 GameObject:
   m_ObjectHideFlags: 0
