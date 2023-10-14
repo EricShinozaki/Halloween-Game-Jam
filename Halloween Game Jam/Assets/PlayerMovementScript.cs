@@ -11,10 +11,14 @@ public class PlayerMovementScript : MonoBehaviour
     private bool direction;
     [SerializeField]
     private float speed = 0.0f;
+    public Sprite spriteLeft;
+    public Sprite spriteRight;
 
+    private SpriteRenderer spriteRenderer;
     void Start()
     {
         input = Vector2.zero;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -24,7 +28,8 @@ public class PlayerMovementScript : MonoBehaviour
             speed = 0f;
         }
         input.x = Input.GetAxisRaw("Horizontal");
-        getInputDirection();  
+        input.y = Input.GetAxisRaw("Vertical");
+        getInputDirection(); 
     }
 
     private void FixedUpdate(){
@@ -39,8 +44,10 @@ public class PlayerMovementScript : MonoBehaviour
     private void getInputDirection(){
         if(Input.GetKeyDown(KeyCode.A)){
             direction = false;
+            spriteRenderer.sprite = spriteLeft;
         } else if(Input.GetKeyDown(KeyCode.D)){
             direction = true;
+            spriteRenderer.sprite = spriteRight;
         } 
     }
 
