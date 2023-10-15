@@ -11,12 +11,19 @@ public class script : MonoBehaviour
     private float speed = 0.0f;
     public Sprite spriteLeft;
     public Sprite spriteRight;
+    public float jumpPower;
+    private bool canJump = true;
+    private bool wpress = false;
 
     private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rigidbody;
+
+    public Animator animator;
     void Start()
     {
         input = Vector2.zero;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -28,6 +35,9 @@ public class script : MonoBehaviour
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         getInputDirection(); 
+        if(Input.GetKeyDown(KeyCode.W)){
+            wpress = true;
+        }
     }
 
     private void FixedUpdate(){
@@ -36,6 +46,12 @@ public class script : MonoBehaviour
             transform.Translate(input * Time.deltaTime * speed * -1.0f);
         } else if(direction == true){
             transform.Translate(input * Time.deltaTime * speed);
+        }
+        if(wpress && canJump){
+            Debug.Log("Jump key pressed.");
+            rigidbody.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
+            canJump = false;
+            wpress = false;
         }
     }
 
@@ -55,5 +71,13 @@ public class script : MonoBehaviour
         } else if(direction == true  && speed <= 5){
             speed += 0.25f;
         } 
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Ground")){
+            canJump = true;
+            Debug.Log("Landed on the ground");
+        }
     }
 }
